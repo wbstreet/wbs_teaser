@@ -1,0 +1,21 @@
+<form>
+    {{ PAGE_SECTION_FIELDS|raw }}
+    Введите новую или уже существующую метку: <br>
+    <input type="text" name="mark" value="{{ mark }}">
+
+    <select onchange="this.form.mark.value=this.value">
+        <option selected disabled>или выберите из списка...</option>
+        {% for exists_mark in exists_marks %}
+            <option value="{{exists_mark}}">{{exists_mark}}</option>
+        {% endfor %}
+    </select>
+    
+    <br><br>
+    
+    * если указывается существующая метка, то будут использованы существующие для этой метки настройки.
+    
+    <br><br>
+    
+    <input type="button" value="Принять изменения" onclick="sendform(this, 'add_common_settings', {url:mod_teaser.url_api})">
+    
+</form>
