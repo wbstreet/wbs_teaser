@@ -129,7 +129,7 @@ if ($teaser['is_active'] == 1 && $teaser['type'] == 'parent_page') {
 
     	$vars = [
 		    'i' => $i,
-    		'pic_url' => WB_URL.MEDIA_DIRECTORY.'/'.$dir['pics_dir'].'/'.$name,
+    		'pic_url' => WB_URL.MEDIA_DIRECTORY.'/'.$pics_dir.'/'.$name,
 		];
         echo $twig->render('tile', array_merge($vars, $common_vars));
 		//echo str_replace(array_keys($vars), array_values($vars), $teaser['tile']);
