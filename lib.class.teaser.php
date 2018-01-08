@@ -29,7 +29,7 @@ class Teaser extends Addon {
         $tile = mysql_escape_string("<div class='tizerbox'>
                  <a href='{{page_url}}'><img src='{{wb_url}}/media/teaser/{{page_id}}.png'></a>
                  <br>
-                 <a href='{{page_url}}'>{{page_title}}<a>
+                 <a href='{{page_url}}'>{{page_title}}</a>
                  </div>");
         
         $sql = "INSERT INTO {$this->tbl_teaser}
