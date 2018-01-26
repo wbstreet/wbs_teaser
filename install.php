@@ -17,8 +17,8 @@ if(!defined('WB_PATH')) {
 
 if(defined('WB_URL'))
 {
-	$database->query("DROP TABLE IF EXISTS `".TABLE_PREFIX."mod_teasers`");
-	$mod_teasers = "CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."mod_teasers` (
+	$database->query("DROP TABLE IF EXISTS `".TABLE_PREFIX."mod_wbs_teasers`");
+	$mod_teasers = "CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."mod_wbs_teasers` (
 		`section_id` VARCHAR(100) NOT NULL DEFAULT '0',
 		 `page_id` INT NOT NULL DEFAULT '0',
 		 `type` VARCHAR(15) NOT NULL DEFAULT 'parent_page',
@@ -32,8 +32,8 @@ if(defined('WB_URL'))
 	$database->query($mod_teasers);
 	if ($database->is_error()) $admin->print_error($database->get_error());
 
-	$database->query("DROP TABLE IF EXISTS `".TABLE_PREFIX."mod_teasers_type_parent`");
-	$mod_teasers = "CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."mod_teasers_type_parent` (
+	$database->query("DROP TABLE IF EXISTS `".TABLE_PREFIX."mod_wbs_teasers_type_parent`");
+	$mod_teasers = "CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."mod_wbs_teasers_type_parent` (
 		 `section_id` VARCHAR(100) NOT NULL DEFAULT '0',
 		 `page_id` INT NOT NULL DEFAULT '0',
 		 `parent_id` VARCHAR(255) NOT NULL DEFAULT 'this',
@@ -44,8 +44,8 @@ if(defined('WB_URL'))
 	$database->query($mod_teasers);
 	if ($database->is_error()) $admin->print_error($database->get_error());	
 
-	$database->query("DROP TABLE IF EXISTS `".TABLE_PREFIX."mod_teasers_type_dir`");
-	$mod_teasers = "CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."mod_teasers_type_dir` (
+	$database->query("DROP TABLE IF EXISTS `".TABLE_PREFIX."mod_wbs_teasers_type_dir`");
+	$mod_teasers = "CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."mod_wbs_teasers_type_dir` (
 		 `section_id` VARCHAR(100) NOT NULL DEFAULT '0',
 		 `page_id` INT NOT NULL DEFAULT '0',
 		 `dir` VARCHAR(255) NOT NULL DEFAULT '',
@@ -54,8 +54,8 @@ if(defined('WB_URL'))
 	$database->query($mod_teasers);
 	if ($database->is_error()) $admin->print_error($database->get_error());	
     
-	$database->query("DROP TABLE IF EXISTS `".TABLE_PREFIX."mod_teasers_type_any_urls`");
-	$mod_teasers = "CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."mod_teasers_type_any_urls` (
+	$database->query("DROP TABLE IF EXISTS `".TABLE_PREFIX."mod_wbs_teasers_type_any_urls`");
+	$mod_teasers = "CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."mod_wbs_teasers_type_any_urls` (
 		 `any_urls_id` INT NOT NULL AUTO_INCREMENT,
 		 `section_id` VARCHAR(100) NOT NULL DEFAULT '0',
 		 `page_id` INT NOT NULL DEFAULT '0',
@@ -70,6 +70,6 @@ if(defined('WB_URL'))
 }
 
 /*
-ALTER TABLE `wb_mod_teasers_type_any_urls` CHANGE `section_id` `section_id` VARCHAR(100) NOT NULL DEFAULT '0';
-ALTER TABLE `wb_mod_teasers` ADD `common_settings_mark` VARCHAR(100) NULL DEFAULT NULL AFTER `is_active`;
+ALTER TABLE `wb_mod_wbs_teasers_type_any_urls` CHANGE `section_id` `section_id` VARCHAR(100) NOT NULL DEFAULT '0';
+ALTER TABLE `wb_mod_wbs_teasers` ADD `common_settings_mark` VARCHAR(100) NULL DEFAULT NULL AFTER `is_active`;
 */

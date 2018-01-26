@@ -17,10 +17,10 @@ class Teaser extends Addon {
     function __construct($db, $page_id, $section_id) {
         parent::__construct('wbs_teaser', $page_id, $section_id);
         $this->db = $db;
-        $this->tbl_teaser = "`".TABLE_PREFIX."mod_teasers`";
-        $this->tbl_teaser_type_parent = "`".TABLE_PREFIX."mod_teasers_type_parent`";
-        $this->tbl_teaser_type_any_urls = "`".TABLE_PREFIX."mod_teasers_type_any_urls`";
-        $this->tbl_teaser_type_dir = "`".TABLE_PREFIX."mod_teasers_type_dir`";
+        $this->tbl_teaser = "`".TABLE_PREFIX."mod_wbs_teasers`";
+        $this->tbl_teaser_type_parent = "`".TABLE_PREFIX."mod_wbs_teasers_type_parent`";
+        $this->tbl_teaser_type_any_urls = "`".TABLE_PREFIX."mod_wbs_teasers_type_any_urls`";
+        $this->tbl_teaser_type_dir = "`".TABLE_PREFIX."mod_wbs_teasers_type_dir`";
 	}
     
     public function add_teaser($page_id, $section_id) {
