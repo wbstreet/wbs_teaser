@@ -67,6 +67,7 @@ if(function_exists('wbs_core_include')) wbs_core_include(['functions.js', 'windo
             <option value="parent_page" <?php if($teaser['type'] == 'parent_page') echo "selected"; ?>>Дочерние страницы</option>
             <option value="any_urls" <?php if($teaser['type'] == 'any_urls') echo "selected"; ?>>Произвольные ссылки</option>
             <option value="dir" <?php if($teaser['type'] == 'dir') echo "selected"; ?>>Картинки из паки Media</option>
+            <option value="minishop" <?php if($teaser['type'] == 'minishop') echo "selected"; ?>>Товары из модуля WBS Minishop</option>
         </select><br>
         Активность: <input type="checkbox" name='is_active' <?php if($teaser['is_active'] == 1) echo "checked"; ?>>
 
@@ -75,6 +76,12 @@ if(function_exists('wbs_core_include')) wbs_core_include(['functions.js', 'windo
     
     <br>
 
+    <div class='teaser-type-minishop block'>
+        <?php
+            
+        ?>
+    </div>
+    
     <div class='teaser-type-parent_page block'>
         ID родителя: <input type="text" name="parent_page_parent_id" value="<?=$type_parent_page['parent_id']?>"><br>
         ID детей через запятую, которых следует исключить:<br> <input type="text" name="parent_page_except_child_ids" value="<?=$type_parent_page['except_child_ids']?>">

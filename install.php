@@ -67,6 +67,17 @@ if(defined('WB_URL'))
 		 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
 	$database->query($mod_teasers);
 	if ($database->is_error()) $admin->print_error($database->get_error());	
+
+        $database->query("DROP TABLE IF EXISTS `".TABLE_PREFIX."mod_wbs_teasers_type_minishop`");
+        $mod_teasers = "CREATE TABLE IF NOT EXISTS `".TABLE_PREFIX."mod_wbs_teasers_type_minishop` (
+                 `minishop_id` INT NOT NULL AUTO_INCREMENT,
+                 `section_id` VARCHAR(100) NOT NULL DEFAULT '0',
+                 `page_id` INT NOT NULL DEFAULT '0',
+                 `product_id` INT NOT NULL,
+                 PRIMARY KEY ( `minishop_id` )
+                 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
+        $database->query($mod_teasers);
+        if ($database->is_error()) $admin->print_error($database->get_error());
 }
 
 /*
