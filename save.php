@@ -61,7 +61,9 @@ if ($action == 'teaser_settings') {
     $any_urls_title = $_POST['any_urls_title'];
 
     $dir_dir = $_POST['dir_dir'];
-	
+
+    $minishop_products = $_POST['minishop_proiducts'];
+
     $errs = '';
 
     //if (!$clsTeaser->update_teaser($_section_id, $tile, $type, $before_tile, $after_tile, $is_active)) $errs .= 'TEASER: '.$database->get_error();
@@ -71,7 +73,9 @@ if ($action == 'teaser_settings') {
     if (!$clsTeaser->update_type_dir($section_id, $dir_dir)) $errs .= 'DIR TYPE: '.$database->get_error();
     $r = $clsTeaser->update_type_any_urls($section_id, $any_urls_id, $any_urls_protocol, $any_urls_url, $any_urls_pic_dir, $any_urls_title);
     if ($r != '') $errs .= 'ANY URLS TYPE: '.$r;
-
+    $r = $clsTeaser->update_type_minishop($section_id, $minishop_products);
+    if ($r != '') $errs .= 'MINISHOP TYPE: '.$r;
+    
     if ($errs !== '') $admin->print_error($errs, $ret_url);
     
     $admin->print_success("Успешно!", $ret_url);

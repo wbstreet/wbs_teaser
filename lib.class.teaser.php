@@ -97,6 +97,10 @@ class Teaser extends Addon {
         return $errs;
     }
     
+    public function update_type_minishop($section_id, $minishop_products) {
+        
+    }
+    
     public function add_type_any_urls($page_id, $section_id, $duplicate_count, $protocol, $url, $pic_dir) {
         $protocol = $this->db->escapeString($protocol);
         $url = $this->db->escapeString($url);

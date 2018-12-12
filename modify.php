@@ -78,7 +78,34 @@ if(function_exists('wbs_core_include')) wbs_core_include(['functions.js', 'windo
 
     <div class='teaser-type-minishop block'>
         <?php
-            
+            $minishop_path = __DIR__."/../wbs_minishop/lib.class.minishop.php";
+            if (file_exists($minishop_path)) {
+                require_once($minishop_path);
+                $clsMinishop = new ModMinishop($page_id, $section_id);
+                
+                $r = $clsMinishop->get_obj([
+                   'is_copy_for'=>'0',
+                   'prod_is_active'=>'1',
+                   'order_by'=>['prod_category_id']
+                ]);
+                if (gettype($r) === 'string') {
+                    echo $r;
+                } else {
+        
+                    $prods = [];
+                    while($r !== null && $product = $r->fetchRow()) {
+                        $prods[] = $clsMinishop->get_product_vars($product);
+                    }
+
+                    foreach ($prods as $i => $prod) {
+                        echo "<input type='checkbox' name='minishop_products[]' value='{$prod['PROD_ID']}'>";
+                        echo "<span>{$prod['PROD_TITLE']}</span>";
+                        echo "<br>";
+                    }
+                }
+            } else {
+                echo "<span>Не подключён модуль магаазина! Он необходим, если Вы хотите использовать товары в слайдере</span>";
+            }
         ?>
     </div>
     
