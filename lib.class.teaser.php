@@ -21,6 +21,7 @@ class Teaser extends Addon {
         $this->tbl_teaser_type_parent = "`".TABLE_PREFIX."mod_wbs_teasers_type_parent`";
         $this->tbl_teaser_type_any_urls = "`".TABLE_PREFIX."mod_wbs_teasers_type_any_urls`";
         $this->tbl_teaser_type_dir = "`".TABLE_PREFIX."mod_wbs_teasers_type_dir`";
+        $this->tbl_teaser_type_minishop = "`".TABLE_PREFIX."mod_wbs_teasers_type_minishop`";
         }
     
     public function add_teaser($page_id, $section_id) {
@@ -98,7 +99,56 @@ class Teaser extends Addon {
     }
     
     public function update_type_minishop($section_id, $minishop_products) {
+
+        $_minishop_products = [];
         
+        // вынимаем имеющиеся товары
+
+        $sql = "SELECT `product_id` FROM {$this->tbl_teaser_type_minishop} WHERE `section_id`=".process_value($section_id);
+        $r = $this->db->query($sql);
+        if ($this->db->is_error()) return $this->db->get_error();
+        while($r->numRows() !== 0 && $row = $r->fetchRow()) {
+            $_minishop_products[] = (int)$row['product_id'];
+        }
+        
+        // определяем отсутсмтвующие товары
+
+        $_minishop_products = array_diff($minishop_products, $_minishop_products);
+
+        // помечаем ненужные товары как удалённые
+        
+        $sql = "UPDATE {$this->tbl_teaser_type_minishop} SET `is_deleted`=1 WHERE `section_id`=".process_value($section_id);
+        if (count($minishop_products) > 0) {
+            $sql .= " AND `product_id` NOT IN (".implode($minishop_products, ',').") ";
+        }
+        $r = $this->db->query($sql);
+        if ($this->db->is_error()) return $this->db->get_error();
+
+        // добавляем отсутствующие товары
+
+        if (count($_minishop_products) > 0) {
+
+            $sql = "INSERT INTO {$this->tbl_teaser_type_minishop} (`section_id`, `product_id`) VALUES ";
+            $sqls = [];
+            foreach ($_minishop_products as $product_id) {
+                $sqls[] = "(".process_value($section_id).", ".process_value($product_id).")";
+            }
+            $r = $this->db->query($sql.implode($sqls, ','));
+            if ($this->db->is_error()) return $this->db->get_error();
+
+        }
+        
+        // помечаем нужные товары как удалённые
+        
+        if (count($minishop_products) > 0) {
+        
+            $sql = "UPDATE {$this->tbl_teaser_type_minishop} SET `is_deleted`=0 WHERE `section_id`=".process_value($section_id);
+            if (count($minishop_products) > 0) {
+                $sql .= " AND `product_id` IN (".implode($minishop_products, ',').") ";
+            }
+            $r = $this->db->query($sql);
+            if ($this->db->is_error()) return $this->db->get_error();
+        }
     }
     
     public function add_type_any_urls($page_id, $section_id, $duplicate_count, $protocol, $url, $pic_dir) {

@@ -62,7 +62,7 @@ if ($action == 'teaser_settings') {
 
     $dir_dir = $_POST['dir_dir'];
 
-    $minishop_products = $_POST['minishop_proiducts'];
+    $minishop_products = $_POST['minishop_products'];
 
     $errs = '';
 

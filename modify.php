@@ -91,6 +91,18 @@ if(function_exists('wbs_core_include')) wbs_core_include(['functions.js', 'windo
                 if (gettype($r) === 'string') {
                     echo $r;
                 } else {
+                        
+                    $_prods = [];
+                        
+                    $sql = "SELECT `product_id` FROM {$clsTeaser->tbl_teaser_type_minishop} WHERE `is_deleted`='0' AND `section_id`=".process_value($section_id);
+                    $_r = $clsTeaser->db->query($sql);
+                    if ($clsTeaser->db->is_error()) {
+                        echo $clsTeaser->db->get_error();
+                    } else {
+                        while($_r->numRows() !== 0 && $row = $_r->fetchRow()) {
+                            $_prods[] = (int)$row['product_id'];
+                        }
+                    }
         
                     $prods = [];
                     while($r !== null && $product = $r->fetchRow()) {
@@ -98,7 +110,9 @@ if(function_exists('wbs_core_include')) wbs_core_include(['functions.js', 'windo
                     }
 
                     foreach ($prods as $i => $prod) {
-                        echo "<input type='checkbox' name='minishop_products[]' value='{$prod['PROD_ID']}'>";
+                        $checked = in_array((int)($prod['PROD_ID']), $_prods) ? "checked" : "";
+                        
+                        echo "<input type='checkbox' name='minishop_products[]' value='{$prod['PROD_ID']}' {$checked}>";
                         echo "<span>{$prod['PROD_TITLE']}</span>";
                         echo "<br>";
                     }

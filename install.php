@@ -74,6 +74,7 @@ if(defined('WB_URL'))
                  `section_id` VARCHAR(100) NOT NULL DEFAULT '0',
                  `page_id` INT NOT NULL DEFAULT '0',
                  `product_id` INT NOT NULL,
+                 `is_deleted` INT NOT NULL DEFAULT '0',
                  PRIMARY KEY ( `minishop_id` )
                  ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci";
         $database->query($mod_teasers);
