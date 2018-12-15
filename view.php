@@ -137,6 +137,33 @@ if ($teaser['is_active'] == 1 && $teaser['type'] == 'parent_page') {
     }
 	
 	echo $teaser['after_tile'];	
+
+} else if ($teaser['is_active'] == 1 && $teaser['type'] == 'minishop') {
+        
+    $r = get_teaser_type_minishop($section_id);
+    
+    echo $teaser['before_tile'];
+
+    $minishop_path = __DIR__."/../wbs_minishop/lib.class.minishop.php";
+    if (file_exists($minishop_path)) {
+        require_once($minishop_path);
+        $clsMinishop = new ModMinishop($page_id, $section_id);        
+
+        while ($r !== null && $product = $r->fetchRow()) {
+
+            $_r = $clsMinishop->get_obj(['product_id'=>$product['product_id'], 'is_copy_for'=>'0']);
+            if (gettype($_r) === 'string') echo $_r;
+            if ($_r === null) continue;
+            
+            $product = $clsMinishop->get_product_vars($r->fetchRow());
+
+            echo $twig->render('tile', array_merge($product, $common_vars));
+        }
+
+    }
+        
+    echo $teaser['after_tile'];
+
 }
 
 /*

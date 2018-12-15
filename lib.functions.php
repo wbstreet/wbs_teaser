@@ -59,6 +59,14 @@ function get_teaser_type_any_urls($section_id) {
     return $r;
 }
 
+function get_teaser_type_minishop($section_id) {
+    global $database;
+    $sql = 'SELECT * FROM `'.TABLE_PREFIX.'mod_wbs_teasers_type_minishop` WHERE `is_deleted`="0" AND `section_id`='.(int)$section_id;
+    $r = $database->query($sql);
+    if ($database->is_error()) echo $database->get_error();
+    return $r;
+}
+
 /*function replace_vars($str, $vars) {
         $_vars = [];
         foreach ($vars as $name => $value) {
