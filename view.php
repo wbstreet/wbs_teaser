@@ -151,11 +151,7 @@ if ($teaser['is_active'] == 1 && $teaser['type'] == 'parent_page') {
 
         while ($r !== null && $product = $r->fetchRow()) {
 
-            $_r = $clsMinishop->get_obj(['product_id'=>$product['product_id'], 'is_copy_for'=>'0']);
-            if (gettype($_r) === 'string') echo $_r;
-            if ($_r === null) continue;
-            
-            $product = $clsMinishop->get_product_vars($r->fetchRow());
+            $product = $clsMinishop->get_product_vars($product);
 
             echo $twig->render('tile', array_merge($product, $common_vars));
         }

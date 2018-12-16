@@ -61,7 +61,7 @@ function get_teaser_type_any_urls($section_id) {
 
 function get_teaser_type_minishop($section_id) {
     global $database;
-    $sql = 'SELECT * FROM `'.TABLE_PREFIX.'mod_wbs_teasers_type_minishop` WHERE `is_deleted`="0" AND `section_id`='.(int)$section_id;
+    $sql = 'SELECT * FROM `'.TABLE_PREFIX.'mod_wbs_teasers_type_minishop` as t, `'.TABLE_PREFIX.'mod_wbs_minishop_products` as m WHERE t.`product_id`=m.`prod_id` AND t.`is_deleted`="0" AND t.`section_id`='.(int)$section_id;
     $r = $database->query($sql);
     if ($database->is_error()) echo $database->get_error();
     return $r;
